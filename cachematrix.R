@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
+## The functions set the Cache Matrix, then attempt to solve it. If the functions find the answer in the Cache, they print a message, otherwise they solve the data and print it
 ## functions do
 
-## Write a short comment describing this function
+## Setting the Cache Matrix
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  i<- NULL
+  set<- function(y){
+    x<<-y
+    i<<- NULL
+  }
+  get<- function()i
+  setinverse<- function(solve)i<<- solve
+  getinverse<- function(i)
+    list(set=set, get=get,setinverse=setinverse, getinverse=getinverse)
 }
 
 
-## Write a short comment describing this function
+## Solving the Cache Matrix
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  i<- x$getinverse()
+  if(!is.null(i)){
+    message("getting cached data")
+    return(i)
+  }
+  data<- x$get()
+  i<- solve(data,...)
+  x$setinverse(i)
+  i
+  ## Return a matrix that is the inverse of 'x'
 }
+
